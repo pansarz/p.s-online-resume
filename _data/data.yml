@@ -7,7 +7,7 @@ basic:
   title: Photographer           # job title
   avatar:
     show: true                       # show or hide avatar
-    path: C:\Users\Admin\Pictures\Personal Photos\DSC_5448.JPG # file path or link to your avatar
+    path: /assets/images/portrait.JPG # file path or link to your avatar
 
 contact:
   location: Patra, Greece  # location, text or markdown link syntax
