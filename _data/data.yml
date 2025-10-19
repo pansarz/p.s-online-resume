@@ -6,8 +6,8 @@ basic:
   name: Panagiotis Sarigiannis                      # name
   title: Photographer           # job title
   avatar:
-    show: false                       # show or hide avatar
-    path: /assets/images/profile.png # file path or link to your avatar
+    show: true                       # show or hide avatar
+    path: C:\Users\Admin\Pictures\Personal Photos\DSC_5448.JPG # file path or link to your avatar
 
 contact:
   location: Patra, Greece  # location, text or markdown link syntax
@@ -153,14 +153,14 @@ project:
         + In action, total car drifting spectacles.
         + A more wild approach with excellent model photography in front of cars.
 
-    - name: Video Game Industry Layoffs 2022 - 2023 Paper (WIP)
+    - name: Video Game Industry Layoffs Paper
       link:
-      tags: committer
-      date:
+      tags: 
+      date: 2022 - 2023
       description: |
-        OSS project description...
-        + First
-        + Second
+        Research Paper highlighting the massive lay-off wave of game developers post-c19's sudden economic industry growth...
+        + Statistical analysis and correlation.
+        + Trends seen behind the scenes in "Goliath" video game companies.
 
 skill:
   show: true
@@ -224,15 +224,15 @@ education:
         + Managerial Skill learning, logistics and economic orientation.
         + Learned about market conditions and turf of war and can now see how big companies think when looking at sometimes questionable actions for the consumers.
 
-    - institution: Multiple Photography and Business Administration Seminars (WIP)
+    - institution: High School
       link:
-      date: 2017 - 2025
+      date: 2017 - 2020
       major: None
       degree: None
       description: |
-        Additional information for this institution (WIP).
-        + First
-        + Second
+        High school grades and verified involvement in basic education.
+        + The foundational knowledge we all need.
+        + Took economic courses for my later on endeavors, aka University.
 
 certificate:
   show: true
@@ -248,12 +248,12 @@ certificate:
       link: '#'
       description: |
         The before-mentioned certificate.
-    - name: None (WIP)
-      issuer: by Example
+    - name: High School Diploma
+      issuer: by Public School
       date: 2020
       link:
       description: |
-        It's my Example Certificate Two by Example.
+        Basic High School Diploma with my grades and economics background.
 
 publication:
   show: false
