@@ -1,0 +1,22 @@
+name: Generate CV PDF
+
+on:
+  workflow_run:
+    workflows: ["Deploy"]
+    types: [completed]
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'Update CV PDF')"
+
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo apt update && sudo apt install -y wkhtmltopdf
+      - run: wkhtmltopdf https://tarrex.github.io/online-resume/print resume.pdf
+      - run: |
+          git config user.name github-actions
+          git config user.email actions@github.com
+          git add resume.pdf
+          git commit -m "Update CV PDF (auto)"
+          git push
