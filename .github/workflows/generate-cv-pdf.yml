@@ -3,72 +3,47 @@ name: Generate CV PDF
 on:
   push:
     paths:
-      - "_data/**"
+      - "_data/**"       # τρέχει όταν αλλάξουν τα YAML δεδομένα
       - "_config.yml"
-  workflow_dispatch:
+  workflow_dispatch:     # επιτρέπει manual trigger
 
 jobs:
   generate_pdf:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repo
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Setup Node.js (για Puppeteer)
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      # 3. Install Puppeteer
-      - name: Install Puppeteer
+      # 2. Install wkhtmltopdf
+      - name: Install wkhtmltopdf
         run: |
-          npm init -y
-          npm install puppeteer
+          sudo apt update
+          sudo apt install -y wkhtmltopdf
 
-      # 4. Generate PDF using Puppeteer
-      - name: Generate PDF from /print
+      # 3. Generate PDF from /print page
+      - name: Generate PDF
         run: |
-          node << 'EOF'
-          const puppeteer = require('puppeteer');
-          const fs = require('fs');
-          const path = require('path');
+          # Δημιουργεί τον φάκελο pdf αν δεν υπάρχει
+          mkdir -p pdf
+          # Κατεβάζει την /print σε PDF
+          wkhtmltopdf _static_print.html pdf/cv.pdf
 
-          (async () => {
-            const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
-            const page = await browser.newPage();
-
-            // Άνοιγμα live /print σελίδας
-            await page.goto('https://pansarz.github.io/p.s-online-resume/print', { waitUntil: 'networkidle0' });
-
-            // Δημιουργία φακέλου pdf
-            if (!fs.existsSync('pdf')) fs.mkdirSync('pdf');
-
-            // Δημιουργία PDF
-            await page.pdf({
-              path: 'pdf/cv.pdf',
-              format: 'A4',
-              printBackground: true
-            });
-
-            await browser.close();
-          })();
-          EOF
-
-      # 5. Configure Git
+      # 4. Configure Git
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # 6. Commit & Push PDF
+      # 5. Commit & Push PDF αν υπάρχει αλλαγή
       - name: Commit and Push PDF
         run: |
           git add pdf/cv.pdf
+          # Έλεγχος αν υπάρχουν αλλαγές
           if ! git diff --cached --quiet; then
             git commit -m "Update CV PDF (auto)"
             git push
           else
             echo "No changes in PDF"
+          fi
