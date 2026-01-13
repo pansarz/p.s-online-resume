@@ -1,0 +1,49 @@
+name: Generate CV PDF
+
+on:
+  push:
+    paths:
+      - "_data/**"       # τρέχει όταν αλλάξουν τα YAML δεδομένα
+      - "_config.yml"
+  workflow_dispatch:     # επιτρέπει manual trigger
+
+jobs:
+  generate_pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Install wkhtmltopdf
+      - name: Install wkhtmltopdf
+        run: |
+          sudo apt update
+          sudo apt install -y wkhtmltopdf
+
+      # 3. Generate PDF from /print page
+      - name: Generate PDF
+        run: |
+          # Δημιουργεί τον φάκελο pdf αν δεν υπάρχει
+          mkdir -p pdf
+          # Κατεβάζει την /print σε PDF
+          wkhtmltopdf https://pansarz.github.io/p.s-online-resume/print pdf/cv.pdf
+
+      # 4. Configure Git
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # 5. Commit & Push PDF αν υπάρχει αλλαγή
+      - name: Commit and Push PDF
+        run: |
+          git add pdf/cv.pdf
+          # Έλεγχος αν υπάρχουν αλλαγές
+          if ! git diff --cached --quiet; then
+            git commit -m "Update CV PDF (auto)"
+            git push
+          else
+            echo "No changes in PDF"
+          fi
