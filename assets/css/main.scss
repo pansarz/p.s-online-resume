@@ -73,3 +73,9 @@ section {
   }
   {% endif %}
 }
+
+body.print .navbar,
+body.print nav,
+body.print header {
+  display: none;
+}
