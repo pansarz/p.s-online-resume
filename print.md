@@ -1,4 +1,5 @@
 ---
-layout: print
+layout: default
 permalink: /print
+print: true
 ---
