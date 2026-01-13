@@ -28,7 +28,7 @@ jobs:
           # Δημιουργεί τον φάκελο pdf αν δεν υπάρχει
           mkdir -p pdf
           # Κατεβάζει την /print σε PDF
-          wkhtmltopdf https://pansarz.github.io/p.s-online-resume/print pdf/cv.pdf
+          wkhtmltopdf _site/print.html pdf/cv.pdf
 
       # 4. Configure Git
       - name: Configure Git
