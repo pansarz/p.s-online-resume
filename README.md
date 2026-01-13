@@ -21,6 +21,7 @@
 ## Live Demo
 
 :point_right: [online-resume][Demo] :point_left:
+For PDF view: https://pansarz.github.io/p.s-online-resume/print
 
 ## Getting Started
 
