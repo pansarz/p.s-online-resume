@@ -22,13 +22,14 @@ jobs:
           sudo apt update
           sudo apt install -y wkhtmltopdf
 
+      - name: Download /print page
+        run: curl -L https://pansarz.github.io/p.s-online-resume/print -o print.html    
+
       # 3. Generate PDF from /print page
-      - name: Generate PDF
+      - name: Generate PDF from /print page
         run: |
-          # Δημιουργεί τον φάκελο pdf αν δεν υπάρχει
           mkdir -p pdf
-          # Κατεβάζει την /print σε PDF
-          wkhtmltopdf _site/print.html pdf/cv.pdf
+          wkhtmltopdf print.html pdf/cv.pdf
 
       # 4. Configure Git
       - name: Configure Git
